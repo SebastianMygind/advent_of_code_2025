@@ -11,12 +11,10 @@ pub fn challenge() {
     let mut zero_count = 0;
 
     for (direction, rotations) in input {
-        let new_position = dial.rotate(direction, rotations);
+        let zero_ticks = dial.rotate(direction, rotations);
 
-        if new_position == 0 {
-            zero_count += 1;
-        }
+        zero_count += zero_ticks
     }
 
-    println!("The amount of times landed on zero: {zero_count}");
+    println!("The amount of times the pointer was at zero: {zero_count}");
 }

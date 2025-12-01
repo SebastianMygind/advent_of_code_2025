@@ -21,10 +21,15 @@ impl Dial {
      */
     pub fn rotate(&mut self, direction: Direction, distance: u32) -> u32 {
         let mut remainder = distance;
+        let mut zero_ticks = 0;
 
         match direction {
             Direction::Left => {
                 while remainder > 0 {
+                    if self.pointer == 0 {
+                        zero_ticks += 1;
+                    }
+
                     if self.pointer == 0 {
                         remainder -= 1;
                         self.pointer = 99;
@@ -33,10 +38,13 @@ impl Dial {
                         self.pointer -= 1;
                     }
                 }
-                self.pointer
             }
             Direction::Right => {
                 while remainder > 0 {
+                    if self.pointer == 0 {
+                        zero_ticks += 1;
+                    }
+
                     if self.pointer == 99 {
                         remainder -= 1;
                         self.pointer = 0;
@@ -45,9 +53,9 @@ impl Dial {
                         self.pointer += 1;
                     }
                 }
-                self.pointer
             }
         }
+        return zero_ticks;
     }
 }
 
